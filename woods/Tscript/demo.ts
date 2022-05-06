@@ -50,74 +50,40 @@
 // const tree = new Tree();
 // console.log(tree.name);
 
-interface api {
-  filter: {
-    [key: string]: string;
-  };
-  pageNum: number;
-  pageSize: number;
-}
-function x({ filter, pageNum, pageSize }: api) {
-  // console.log(filter, pageNum, pageSize);
-  let ax = { ...filter, pageNum, pageSize };
-  console.log(ax);
-}
-x({
-  filter: {
-    name: 'jiangsen',
-  },
-  pageNum: 1,
-  pageSize: 10,
-});
+// interface api {
+//   filter: {
+//     [key: string]: string;
+//   };
+//   pageNum: number;
+//   pageSize: number;
+// }
+// function x({ filter, pageNum, pageSize }: api) {
+//   // console.log(filter, pageNum, pageSize);
+//   let ax = { ...filter, pageNum, pageSize };
+//   console.log(ax);
+// }
+// x({
+//   filter: {
+//     name: 'jiangsen',
+//   },
+//   pageNum: 1,
+//   pageSize: 10,
+// });
 
-// 泛型  泛指的类型
-// 定义的时候不确定类型
-function join<A>(first: A, second: A) {
-  return `${first}`;
-}
 
-function joes<A, B>(fir: A, sec: B) {
-  return '';
-}
-function arrList<T>(arr: T[]) {
-  return '2344';
-}
-// 使用的时候再去确定类型
-join<string>('1', '1');
 
-joes<string, number>('11', 354);
-joes(123, '3545'); //泛型类型推断
-
-arrList<string>(['hello']);
-
-// 类中的泛型
-class Demo {
-  constructor(private data: string[] | number[]) {}
-  getItem(index: number): string | number {
-    return this.data[index];
+class Single {
+  private static instance: Single;
+  private constructor(public name: string) {}
+  static getInstance() {
+    if (!this.instance) {
+      this.instance = new Single('jiangsen');
+    }
+    return this.instance;
   }
 }
-const data = new Demo([1]);
+const demo1 = Single.getInstance();
 
-// 运用泛型去解决复杂的联合类型的问题
+const demo2 = Single.getInstance();
+console.log(demo1 === demo2);
 
-// 泛型可以继承某一个接口，来固定拥有某些属性
-interface Item {
-  name: string;
-}
-class Demo1<T extends Item> {
-  constructor(private data: T[]) {}
-  getItem(index: number): T {
-    return this.data[index];
-  }
-  getName(index: number): string {
-    return this.data[index].name;
-  }
-}
-const data1 = new Demo1([{ name: 'hello', age: 134 }]);
-
-// 用泛型是声明函数
-function getFan<T>(param: T): string {
-  return 'hello' + param;
-}
-getFan(133);
