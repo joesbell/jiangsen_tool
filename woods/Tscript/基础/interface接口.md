@@ -59,6 +59,10 @@ class person implements Person {
 interface Son extends Person {
   son(): string;
 }
+interface Person {
+  son(): string;
+}
+interface Son extends Person{}
 class son implements Son {
   name = 'hello';
   son() {

@@ -87,3 +87,25 @@ const demo1 = Single.getInstance();
 const demo2 = Single.getInstance();
 console.log(demo1 === demo2);
 
+
+interface Joes{
+  name:string,
+  age:number,
+  live:boolean
+}
+
+class Person{
+  constructor(private info:Joes){
+  }
+  getPerson<T extends keyof Joes>(key:T):Joes[T]{
+    return this.info[key]
+  }
+}
+const person=new Person({
+  name:'jiangsen',
+  age:134,
+  live:true
+})
+person.getPerson('age')
+
+
